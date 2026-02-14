@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>will you be my Valentine? · clash royale heart</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            user-select: none;
+        }
+        body {
+            min-height: 100vh;
+            background: linear-gradient(145deg, #ffdde1 0%, #f9c9e2 100%);
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            overflow: hidden;           /* moving heart won't trigger scrollbars */
+            position: relative;
+        }
+        /* main card */
+        .card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 48px 48px 32px 32px;
+            padding: 2.5rem 3rem;
+            box-shadow: 0 20px 40px rgba(233, 88, 138, 0.25),
+                        0 0 0 2px #fff8 inset,
+                        0 0 0 5px #ffb6c9 inset;
+            text-align: center;
+            max-width: 700px;
+            width: 90%;
+            border: 1px solid rgba(255,255,240,0.7);
+            transition: all 0.3s ease;
+            z-index: 15;
+        }
+        h1 {
+            font-size: 3.2rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: #b13e5c;
+            text-shadow: 3px 3px 0 #fff2, 6px 6px 0 rgba(255,192,203,0.5);
+            margin-bottom: 2rem;
+            word-break: break-word;
+        }
+        .valentine-text {
+            font-size: 2.2rem;
+            font-weight: 600;
+            margin: 0.5rem 0 2rem 0;
+            background: #fffc;
+            padding: 0.75rem 1.5rem;
+            border-radius: 80px;
+            display: inline-block;
+            color: #a63555;
+            box-shadow: 0 4px 10px #ffb0b9;
+            border: 3px solid white;
+        }
+        .button-panel {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            align-items: center;
+            margin: 2rem 0 1rem;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 50;
+        }
+        .btn {
+            font-size: 2.4rem;
+            font-weight: bold;
+            padding: 1rem 3rem;
+            border: none;
+            border-radius: 60px;
+            cursor: pointer;
+            box-shadow: 0 10px 0 #9e3d52, 0 10px 25px #f27b9b;
+            transition: all 0.05s linear;    /* makes movement snappy */
+            letter-spacing: 2px;
+            background: white;
+            color: #c94f6a;
+            border: 3px solid #ffd2dc;
+            min-width: 180px;
+        }
+        .btn-yes {
+            background: #ffe2ed;
+            border: 4px solid #ffb0c3;
+        }
+        .btn-no {
+            background: #392d38;
+            color: #ffcedf;
+            box-shadow: 0 10px 0 #170b12, 0 10px 25px #b36f85;
+            border: 3px solid #946b7c;
+            transition: left 0.08s ease, top 0.08s ease;
+        }
+        /* hidden victory section */
+        .victory-area {
+            margin-top: 2.2rem;
+            transition: opacity 0.4s ease;
+        }
+        .love-message {
+            font-size: 2rem;
+            font-weight: 700;
+            background: #fee2e9f5;
+            padding: 1.2rem 1.8rem;
+            border-radius: 120px;
+            color: #2a4747;
+            text-shadow: 2px 2px 0 #fadbe6;
+            border: 4px solid white;
+            box-shadow: 0 10px 0 #9f616a;
+            margin-top: 1rem;
+        }
+        .hidden {
+            display: none !important;
+        }
+        .visible {
+            display: block !important;
+        }
+        /* floating heart balloon */
+        .heart-balloon {
+            position: absolute;
+            width: 110px;
+            height: 120px;
+            z-index: 30;
+            pointer-events: none;
+            filter: drop-shadow(0 15px 10px #ec7b9b);
+            animation: float-around 16s infinite alternate ease-in-out;
+            top: 5%;
+            left: 5%;
+        }
+        .heart-balloon svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+            filter: drop-shadow(0 8px 6px #d73b6b);
+        }
+        /* balloon string */
+        .string {
+            width: 4px;
+            height: 55px;
+            background: linear-gradient(45deg, #8b6b6b, #5d3b3b);
+            margin: -8px auto 0;
+            border-radius: 2px;
+            transform: rotate(2deg);
+            box-shadow: 0 2px 4px #402c2c;
+        }
+
+        @keyframes float-around {
+            0% { transform: translate(0, 0) rotate(-8deg); }
+            20% { transform: translate(18vw, 12vh) rotate(3deg); }
+            40% { transform: translate(42vw, 5vh) rotate(-12deg); }
+            60% { transform: translate(68vw, 18vh) rotate(7deg); }
+            80% { transform: translate(75vw, 55vh) rotate(-4deg); }
+            100% { transform: translate(12vw, 78vh) rotate(10deg); }
+        }
+
+        /* responsive adjustments */
+        @media (max-width: 550px) {
+            h1 { font-size: 2.5rem; }
+            .btn { font-size: 1.8rem; padding: 0.8rem 1.2rem; min-width: 130px; }
+            .valentine-text { font-size: 1.5rem; }
+        }
+
+        .clash-royale-img {
+            width: 100%;
+            max-width: 340px;
+            border-radius: 48px;
+            background: #fbb0c0;
+            padding: 10px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- floating heart balloon -->
+    <div class="heart-balloon">
+        <svg viewBox="0 0 100 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M50 20 C 25 0, 0 25, 20 45 C 30 58, 40 70, 50 80 C 60 70, 70 58, 80 45 C 100 25, 75 0, 50 20 Z" fill="#ff4d6d" stroke="#fff2f0" stroke-width="5"/>
+            <circle cx="38" cy="32" r="6" fill="white" />
+            <circle cx="60" cy="32" r="6" fill="white" />
+            <circle cx="40" cy="34" r="2" fill="#2b1e1e" />
+            <circle cx="58" cy="34" r="2" fill="#2b1e1e" />
+            <path d="M45 48 Q 50 58, 55 48" stroke="#9e3152" stroke-width="4" fill="none" stroke-linecap="round"/>
+        </svg>
+        <div class="string"></div>
+    </div>
+
+    <!-- main card -->
+    <div class="card">
+        <h1>💖 will you be <br> my Valentine? 💖</h1>
+        <div class="valentine-text">💘 heart balloon drifting 💘</div>
+        
+        <!-- yes / no buttons -->
+        <div class="button-panel" id="buttonPanel">
+            <button class="btn btn-yes" id="yesBtn">YES 💕</button>
+            <button class="btn btn-no" id="noBtn">NO 💔</button>
+        </div>
+
+        <!-- clash royale victory area (hidden until yes) -->
+        <div id="victoryContainer" class="victory-area hidden">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Ccircle cx='200' cy='160' r='70' fill='%23fdd0e0' stroke='%23b3436b' stroke-width='14'/%3E%3Ccircle cx='160' cy='130' r='15' fill='white'/%3E%3Ccircle cx='240' cy='130' r='15' fill='white'/%3E%3Ccircle cx='170' cy='140' r='5' fill='black'/%3E%3Ccircle cx='230' cy='140' r='5' fill='black'/%3E%3Cpath d='M200 180 Q 220 200, 200 220 Q 180 200, 200 180' fill='%23d6455c'/%3E%3Crect x='150' y='250' width='100' height='70' rx='20' fill='%23f4a2b2' stroke='%23943e5a' stroke-width='10' /%3E%3Ccircle cx='135' cy='270' r='30' fill='%23943e5a' /%3E%3Ccircle cx='265' cy='270' r='30' fill='%23943e5a' /%3E%3Cpath d='M140 310 L 200 370 L 260 310' stroke='%236d2b48' stroke-width='14' fill='%23d97089' /%3E%3Ctext x='60' y='360' font-size='45' fill='%23952e5a' font-weight='bold' font-family='monospace'%3E⚔️👑%3C/text%3E%3C/svg%3E" 
+                 alt="Clash Royale Valentine" class="clash-royale-img">
+            <div class="love-message">⚔️💖 "i knew you wouldnt CLASH with my feelings, i love you" 💖⚔️</div>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            const noButton = document.getElementById('noBtn');
+            const yesButton = document.getElementById('yesBtn');
+            const victoryDiv = document.getElementById('victoryContainer');
+            const panel = document.getElementById('buttonPanel');
+
+            // Function to make the NO button escape
+            function moveNoButtonAway(e) {
+                if (!victoryDiv.classList.contains('hidden')) return;
+
+                const btnRect = noButton.getBoundingClientRect();
+                const mouseX = e.clientX;
+                const mouseY = e.clientY;
+
+                const btnCenterX = btnRect.left + btnRect.width / 2;
+                const btnCenterY = btnRect.top + btnRect.height / 2;
+                const dist = Math.hypot(mouseX - btnCenterX, mouseY - btnCenterY);
+
+                if (dist < 150) {
+                    const dx = btnCenterX - mouseX;
+                    const dy = btnCenterY - mouseY;
+                    const angle = Math.atan2(dy, dx);
+                    const pushX = Math.cos(angle) * 250;
+                    const pushY = Math.sin(angle) * 250;
+
+                    const panelRect = panel.getBoundingClientRect();
+                    let newLeft = btnRect.left - panelRect.left + pushX;
+                    let newTop = btnRect.top - panelRect.top + pushY;
+
+                    const maxLeft = panelRect.width - btnRect.width - 10;
+                    const maxTop = panelRect.height - btnRect.height - 10;
+                    const minLeft = 10;
+                    const minTop = 10;
+
+                    newLeft = Math.min(maxLeft, Math.max(minLeft, newLeft));
+                    newTop = Math.min(maxTop, Math.max(minTop, newTop));
+
+                    noButton.style.position = 'absolute';
+                    noButton.style.left = newLeft + 'px';
+                    noButton.style.top = newTop + 'px';
+                    panel.style.minHeight = '120px';
+                }
+            }
+
+            document.addEventListener('mousemove', function(e) {
+                if (!victoryDiv.classList.contains('hidden')) return;
+                moveNoButtonAway(e);
+            });
+
+            document.addEventListener('touchmove', function(e) {
+                if (!victoryDiv.classList.contains('hidden')) return;
+                if (e.touches.length > 0) {
+                    const touch = e.touches[0];
+                    const fakeMouse = {
+                        clientX: touch.clientX,
+                        clientY: touch.clientY
+                    };
+                    moveNoButtonAway(fakeMouse);
+                }
+            }, { passive: false });
+
+            // YES button click
+            yesButton.addEventListener('click', function() {
+                noButton.style.display = 'none';
+                victoryDiv.classList.remove('hidden');
+                victoryDiv.classList.add('visible');
+                yesButton.innerText = '💞 YES! 💞';
+                yesButton.disabled = true;
+                yesButton.style.opacity = '0.7';
+                yesButton.style.cursor = 'default';
+            });
+
+            // NO button click
+            noButton.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if (!victoryDiv.classList.contains('hidden')) return;
+                alert("💔 no? ... oops button moved! 💔 try again, love always wins 💕");
+                const panelRect = panel.getBoundingClientRect();
+                const btnRect = noButton.getBoundingClientRect();
+                const maxLeft = panelRect.width - btnRect.width - 20;
+                const maxTop = panelRect.height - btnRect.height - 20;
+                const randomLeft = 20 + Math.random() * (maxLeft - 20);
+                const randomTop = 20 + Math.random() * (maxTop - 20);
+                noButton.style.position = 'absolute';
+                noButton.style.left = randomLeft + 'px';
+                noButton.style.top = randomTop + 'px';
+                panel.style.minHeight = '120px';
+            });
+
+            window.addEventListener('resize', function() {
+                if (noButton.style.position === 'absolute') {
+                    const panelRect = panel.getBoundingClientRect();
+                    const btnRect = noButton.getBoundingClientRect();
+                    if (btnRect.left < panelRect.left || btnRect.right > panelRect.right) {
+                        noButton.style.position = 'relative';
+                        noButton.style.left = '';
+                        noButton.style.top = '';
+                    }
+                }
+            });
+
+            panel.style.minHeight = '120px';
+            victoryDiv.classList.add('hidden');
+        })();
+    </script>
+</body>
+</html>
