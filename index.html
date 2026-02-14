@@ -3,60 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Valentine's Day!</title>
+    <title>Valentine's Clash</title>
     <style>
         body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: pink;
+            text-align: center;
+            background-color: #ffcccb;
             font-family: Arial, sans-serif;
         }
-        h1 {
-            font-size: 4rem;
-            color: white;
-        }
-        .heart {
-            width: 100px;
-            height: 100px;
-            background-color: red;
-            position: relative;
-            transform: rotate(-45deg);
-            animation: pulse 1.5s infinite;
-        }
-        .heart::before,
-        .heart::after {
-            content: "";
-            width: 100px;
-            height: 100px;
-            background-color: red;
-            border-radius: 50%;
+        .balloon {
             position: absolute;
+            width: 100px;
+            animation: float 5s infinite;
         }
-        .heart::before {
-            top: -50px;
-            left: 0;
+        @keyframes float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0); }
         }
-        .heart::after {
-            left: 50px;
-            top: 0;
-        }
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.1);
-            }
-            100% {
-                transform: scale(1);
-            }
+        .victory-screen {
+            display: none;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
-    <div class="heart"></div>
-    <h1>Happy Valentine's Day!</h1>
+    <h1>Welcome to Valentine's Clash!</h1>
+    <p>Please choose your option:</p>
+    <button id="yes-button">YES</button>
+    <button id="no-button">NO</button>
+    <div class="victory-screen" id="victory-screen">
+        <img src="clash_royale_victory.png" alt="Victory Screen" />
+        <h2>You Win!</h2>
+    </div>
+    <img src="heart_balloon.png" class="balloon" alt="Heart Balloon" />
+    <script>
+        document.getElementById('yes-button').onclick = function() {
+            document.getElementById('victory-screen').style.display = 'block';
+        };
+        document.getElementById('no-button').onclick = function() {
+            alert('Better luck next time!');
+        };
+    </script>
 </body>
 </html>
